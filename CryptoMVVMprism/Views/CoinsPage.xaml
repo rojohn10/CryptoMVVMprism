@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             NavigationPage.HasNavigationBar="False"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:androidSpecific="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             x:Class="CryptoMVVMprism.Views.CoinsPage">
+
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout>
+                <SearchBar TextColor="White" 
+                           x:Name="SbCoins"
+                           BackgroundColor="#427ad4" 
+                           Placeholder="Search" 
+                           PlaceholderColor="White" 
+                           CancelButtonColor="White">
+                    <SearchBar.Behaviors>
+                        <prism:EventToCommandBehavior EventName="TextChanged"
+                                                      Command="{Binding TextChangedCommand}"
+                                                      CommandParameter="{Binding Text, Source={x:Reference SbCoins }}">
+                        </prism:EventToCommandBehavior>
+                    </SearchBar.Behaviors>
+                </SearchBar>
+
+                <ListView SeparatorColor="#d96818" 
+                          GroupHeaderTemplate="{Binding groupHeader}"
+                          ItemsSource="{Binding CoinsGrouped}"                            
+                          SelectedItem="{Binding SelectedCoin, Mode=TwoWay}"
+                          Margin="5"                         
+                          HasUnevenRows="True" 
+                          androidSpecific:ListView.IsFastScrollEnabled="True"
+                          GroupShortNameBinding="{Binding Key}" 
+                          IsGroupingEnabled="True" 
+                          GroupDisplayBinding="{Binding Key}">
+                     
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid HorizontalOptions="Fill">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackLayout Margin="5,5,0,0">
+                                        <Label Text="{Binding Name}" 
+                                               VerticalOptions="Center" 
+                                               FontSize="15" TextColor="Black" 
+                                               FontFamily="Chunkfive"/>
+                                        <Label Text="{Binding Symbol}" 
+                                               VerticalOptions="Center" 
+                                               FontSize="15" TextColor="#427ad4" 
+                                               FontAttributes="Bold"/>
+                                    </StackLayout>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+            <StackLayout IsVisible="{Binding IsBusy}" BackgroundColor="Gray" Opacity="0.5">
+                <ActivityIndicator
+                               IsRunning="True" 
+                               HorizontalOptions="CenterAndExpand" 
+                               VerticalOptions="CenterAndExpand"
+                               Color="Brown"/>
+                
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

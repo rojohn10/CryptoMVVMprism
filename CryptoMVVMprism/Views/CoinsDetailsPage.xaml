@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="CryptoMVVMprism.Views.CoinsDetailsPage">
+
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout BackgroundColor="#d6d4d4">
+                <AbsoluteLayout>
+                    <Image Source="crypto.jpg" AbsoluteLayout.LayoutBounds="0,0,1,0.4" AbsoluteLayout.LayoutFlags="All"/>
+                    <Frame HasShadow="True" CornerRadius="15" OutlineColor ="#427ad4" AbsoluteLayout.LayoutBounds="0.5,0.33,100,100" AbsoluteLayout.LayoutFlags="PositionProportional">
+                        <Image Source="{Binding CoinImage}"></Image>
+                    </Frame>
+
+                    <Label Text="{Binding CoinSymbol}" FontSize="25" FontAttributes="Bold" TextColor="#427ad4" 
+                           HorizontalTextAlignment="Center" 
+                           AbsoluteLayout.LayoutBounds="0.5,0.54,0.3,0.2" 
+                           AbsoluteLayout.LayoutFlags="All"
+                           FontFamily="Wendy"/>
+
+                    <Frame HasShadow="True" CornerRadius="15" BackgroundColor="White" OutlineColor="#427ad4" AbsoluteLayout.LayoutBounds="0.5,0.56,0.95,90" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" >
+                        <StackLayout  Padding="8,2,0,0" >
+                            <Label Text="Name" TextColor="#427ad4" FontSize="17" FontAttributes="Bold" FontFamily="Chunkfive"/>
+                            <Label TextColor="Black" Text="{Binding CoinName}" FontSize="15"/>
+                        </StackLayout>
+                    </Frame>
+
+                    <Frame HasShadow="True" CornerRadius="15" BackgroundColor="White" OutlineColor="#427ad4" AbsoluteLayout.LayoutBounds="0.5,0.71,0.95,90" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional">
+                        <StackLayout  Padding="8,2,0,0" >
+                            <Label Text="Current Price" TextColor="#427ad4" FontSize="17" FontAttributes="Bold" FontFamily="Chunkfive"/>
+                            <Label TextColor="Black" Text="{Binding CoinPrice}" FontSize="15"/>
+                        </StackLayout>
+                    </Frame>
+
+                    <Frame HasShadow="True" CornerRadius="15" BackgroundColor="White" OutlineColor="#427ad4" AbsoluteLayout.LayoutBounds="0.5,0.98,0.95,0.23" AbsoluteLayout.LayoutFlags="All">
+                        <StackLayout  Padding="8,2,0,0" >
+                            <Label Text="Description" TextColor="#427ad4" FontSize="17" FontAttributes="Bold" FontFamily="Chunkfive"/>
+                            <ScrollView>
+                                <Label TextColor="Black" Text="{Binding CoinDescription}" FontSize="15"/>
+                            </ScrollView>
+                        </StackLayout>
+                    </Frame>
+                </AbsoluteLayout>
+            </StackLayout>
+            <StackLayout IsVisible="{Binding IsBusy}" BackgroundColor="Gray" Opacity="0.5">
+                <ActivityIndicator IsRunning="True" 
+                            HorizontalOptions="CenterAndExpand" 
+                            VerticalOptions="CenterAndExpand"
+                            Color="Brown"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
